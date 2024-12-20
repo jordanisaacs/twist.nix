@@ -182,9 +182,10 @@ in
         ${lib.optionalString (length executablePackages > 0) "--prefix PATH : ${lib.escapeShellArg (lib.makeBinPath executablePackages)}"} \
         --prefix INFOPATH : ${emacs}/share/info:$out/share/info:${infoPath} \
         ${
-      lib.optionalString nativeComp "--set EMACSNATIVELOADPATH $nativeLisp:$nativeLoadPath"
+      lib.optionalString nativeComp "--prefix EMACSNATIVELOADPATH : $nativeLisp:$nativeLoadPath"
     } \
-        --set EMACSLOADPATH "$siteLisp:"
+        --set-default EMACSLOADPATH ":" \
+        --prefix EMACSLOADPATH : "$siteLisp"
       fi
     done
   ''
